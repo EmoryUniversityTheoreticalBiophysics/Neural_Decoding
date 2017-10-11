@@ -82,7 +82,7 @@ def bin_output(outputs,output_times,dt,wdw_start,wdw_end,downsample_factor=1):
 
 
 ###$$ GET_SPIKES_WITH_HISTORY #####
-def get_spikes_with_history(neural_data,bins_before,bins_after,bins_current=1):
+def get_spikes_with_history(neural_data,bins_before,bins_after,bins_current=1,dt_ratio=1):
     """
     Function that creates the covariate matrix of neural activity
 
@@ -115,5 +115,5 @@ def get_spikes_with_history(neural_data,bins_before,bins_after,bins_current=1):
     for i in range(num_examples-bins_before-bins_after): #The first bins_before and last bins_after bins don't get filled in
         end_idx=start_idx+surrounding_bins; #The bins of neural data we will be including are between start_idx and end_idx (which will have length "surrounding_bins")
         X[i+bins_before,:,:]=neural_data[start_idx:end_idx,:] #Put neural data from surrounding bins in X, starting at row "bins_before"
-        start_idx=start_idx+1;
+        start_idx=start_idx+dt_ratio;
     return X
